@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
@@ -30,4 +31,28 @@ class LoginTest extends TestCase
                 ->etc()
         );
     }
+
+    public function test_exists_user_can_not_login_with_invalid_email(): void
+    {
+        $inputes = [
+            'email' => 'test@test.com',
+            'password' => 'password'
+        ];
+
+        $response = $this->postJson(route('api.login'), $inputes);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function test_exists_user_can_not_login_with_invalid_password(): void
+    {
+        $user = User::factory()->create();
+        $inputes = [
+            'email' => $user->email,
+            'password' => 'wrong pass'
+        ];
+
+        $response = $this->postJson(route('api.login'), $inputes);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
 }
