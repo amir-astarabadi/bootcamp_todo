@@ -12,8 +12,6 @@ use Tests\TestCase;
 class RegisterTest extends TestCase
 {
 
-    use DatabaseTransactions;
-
     public function test_happy_path(): void
     {
         $inputs = [

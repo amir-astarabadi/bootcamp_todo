@@ -14,4 +14,9 @@ class Profile extends Model
         'company',
         'nationality',
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

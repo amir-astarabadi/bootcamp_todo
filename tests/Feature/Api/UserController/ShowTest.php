@@ -12,8 +12,6 @@ use Tests\TestCase;
 
 class ShowTest extends TestCase
 {
-    use DatabaseTransactions;
-
     public function test_happy_path(): void
     {
         $user = User::factory()->create();
@@ -25,9 +23,9 @@ class ShowTest extends TestCase
 
         $response->assertJson(
             fn (AssertableJson $json) =>
-            $json->where('data.user.id', $user->getKey())
-                ->where('data.user.name', $user->name)
-                ->where('data.user.email', $user->email)
+            $json->where('data.id', $user->getKey())
+                ->where('data.name', $user->name)
+                ->where('data.email', $user->email)
                 ->where('data.profile.id', $profile->getKey())
                 ->where('data.profile.company', $profile->company)
                 ->where('data.profile.ntionality', $profile->ntionality)

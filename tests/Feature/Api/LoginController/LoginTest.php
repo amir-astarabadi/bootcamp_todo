@@ -13,8 +13,6 @@ use Tests\TestCase;
 class LoginTest extends TestCase
 {
 
-    use DatabaseTransactions;
-
     public function test_exists_user_can_login(): void
     {
         $user = User::factory()->create();
