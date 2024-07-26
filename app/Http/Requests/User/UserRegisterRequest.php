@@ -26,4 +26,14 @@ class UserRegisterRequest extends FormRequest
             'password' => ['required', 'min:6', 'confirmed'],
         ];
     }
+
+    public function prepareForValidation()
+    {
+        return $this->merge([
+            'email' => $this->get('user_name'),
+            'password' => $this->get('credential'),
+            'password_confirmation' => $this->get('credential_confirmation'),
+        ]);
+    }
+
 }

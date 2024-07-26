@@ -20,8 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // DB::list(function($q){
-            
-        // });
+        DB::listen(function ($q) {
+        
+            if(str_contains($q->sql, 'select `tasks`')){
+                dump($q->sql);
+            }
+        });
     }
 }
