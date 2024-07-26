@@ -9,6 +9,6 @@ class UserController extends Controller
 {
     public function show()
     {
-        return UserResource::make(auth()->user());
+        return UserResource::make(auth()->user())->response()->setStatusCode(200);
     }
 }

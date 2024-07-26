@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,9 +22,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         DB::listen(function ($q) {
-        
-            if(str_contains($q->sql, 'select `tasks`')){
-                dump($q->sql);
+
+            if (str_contains($q->sql, 'select `tasks`')) {
+                Log::channel('daily')
+                    ->info('query_log', [
+                        'query' => $q->sql,
+                        'time' => $q->time,
+                        'bindings' => $q->bindings,
+                    ]);
             }
         });
     }

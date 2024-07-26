@@ -13,8 +13,6 @@ use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
-    
-    
     public function test_auth_login_can_update_his_prorile(): void
     {
         $profile = Profile::factory()->create();
@@ -31,6 +29,7 @@ class StoreTest extends TestCase
 
     public function test_auth_login_can_not_update_other_users_prorile(): void
     {
+        $this->login();
         $profile = Profile::factory()->create();
     
         $inpute = [
@@ -38,7 +37,7 @@ class StoreTest extends TestCase
             'nationality' => fake()->words(1, true),
         ];
 
-        $response = $this->actingAs(User::factory()->create())->putJson(route('api.profiles.update', ['profile' => $profile->getKey()]), $inpute);
+        $response = $this->putJson(route('api.profiles.update', ['profile' => $profile->getKey()]), $inpute);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
         $this->assertDatabaseMissing('profiles', ['id' => $profile->getKey(), 'user_id' => $profile->owner->getKey(), ...$inpute]);

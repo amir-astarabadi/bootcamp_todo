@@ -14,18 +14,18 @@ class ShowTest extends TestCase
 {
     public function test_happy_path(): void
     {
-        $user = User::factory()->create();
+        $this->login();
+        
+        $profile = Profile::factory()->forUser($this->authUser)->create();
 
-        $profile = Profile::factory()->forUser($user)->create();
-
-        $response = $this->actingAs($user)->getJson(route('api.users.show'));
+        $response = $this->getJson(route('api.users.show'));
         $response->assertStatus(200);
 
         $response->assertJson(
             fn (AssertableJson $json) =>
-            $json->where('data.id', $user->getKey())
-                ->where('data.name', $user->name)
-                ->where('data.email', $user->email)
+            $json->where('data.id', $this->authUser->getKey())
+                ->where('data.name', $this->authUser->name)
+                ->where('data.email', $this->authUser->email)
                 ->where('data.profile.id', $profile->getKey())
                 ->where('data.profile.company', $profile->company)
                 ->where('data.profile.ntionality', $profile->ntionality)

@@ -19,4 +19,14 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function image2()
+    {
+        return $this->hasOne(Image::class);
+    }
 }
