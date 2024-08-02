@@ -24,7 +24,7 @@ class TaskCreateReqeust extends FormRequest
         return [
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'due_date' => ['required', 'date', 'after_or_equal:'.now()->toDateString()],
+            'due_date' => ['required', 'date', 'after_or_equal:' . now()->toDateString()],
             'board_id' => ['required', 'exists:boards,id'],
         ];
     }
