@@ -27,7 +27,7 @@ class UserRegisterRequest extends FormRequest
         ];
     }
 
-    public function prepareForValidation()
+    public function prepareForValidation(): self
     {
         return $this->merge([
             'email' => $this->get('user_name'),

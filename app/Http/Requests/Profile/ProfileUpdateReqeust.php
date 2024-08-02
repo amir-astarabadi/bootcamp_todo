@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Profile;
 
+use App\Models\Profile;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProfileUpdateReqeust extends FormRequest
@@ -11,7 +12,10 @@ class ProfileUpdateReqeust extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->is($this->route('profile')->owner);
+        /** @var Profile $profile */
+        $profile = $this->route('profile');
+
+        return auth()->user()->is($profile->owner);
     }
 
     /**

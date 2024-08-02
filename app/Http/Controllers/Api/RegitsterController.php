@@ -9,9 +9,9 @@ use App\Models\User;
 
 class RegitsterController extends Controller
 {
-    public function __invoke(UserRegisterRequest $request)
+    public function __invoke(UserRegisterRequest $request): RegiesterResource
     {
-        $user = User::create($request->validated());
+        $user = User::query()->create($request->validated());
 
         return RegiesterResource::make($user);
     }
