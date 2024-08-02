@@ -23,7 +23,12 @@ class BoardCreateReqeust extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:250', Rule::unique('boards', 'name')->where('creator_id', '=', auth()->id())],
+            'name' => [
+                'required',
+                'string',
+                'max:250',
+                Rule::unique('boards', 'name')->where('creator_id', auth()->id()),
+            ],
         ];
     }
 }
