@@ -20,7 +20,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TaskCreateReqeust $request)
+    public function store(TaskCreateReqeust $request): TaskResource
     {
         $task = auth()->user()->createTask($request->validated());
 
