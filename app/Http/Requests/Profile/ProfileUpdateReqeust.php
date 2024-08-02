@@ -23,8 +23,8 @@ class ProfileUpdateReqeust extends FormRequest
     {
 
         return [
-            "company" => "required|string|min:2|max:250",
-            "nationality" => ['required', 'string', 'min:2', 'max:250'],
+            'company' => 'required|string|min:2|max:250',
+            'nationality' => ['required', 'string', 'min:2', 'max:250'],
         ];
     }
 }

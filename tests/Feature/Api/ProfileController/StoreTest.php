@@ -3,11 +3,6 @@
 namespace Tests\Feature\Api\ProfileController;
 
 use App\Models\Profile;
-use App\Models\User;
-use Database\Factories\ProfileFactory;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
@@ -16,7 +11,7 @@ class StoreTest extends TestCase
     public function test_auth_login_can_update_his_prorile(): void
     {
         $profile = Profile::factory()->create();
-    
+
         $inpute = [
             'company' => fake()->words(2, true),
             'nationality' => fake()->words(1, true),
@@ -31,7 +26,7 @@ class StoreTest extends TestCase
     {
         $this->login();
         $profile = Profile::factory()->create();
-    
+
         $inpute = [
             'company' => fake()->words(2, true),
             'nationality' => fake()->words(1, true),

@@ -75,6 +75,4 @@ class User extends Authenticatable
     {
         return Task::create([...$data, 'creator_id' => $this->getKey()]);
     }
-
-
 }

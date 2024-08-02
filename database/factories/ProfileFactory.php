@@ -27,7 +27,7 @@ class ProfileFactory extends Factory
     public function forUser(User $user)
     {
         return $this->state([
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
         ]);
     }
 }

@@ -37,7 +37,6 @@ class UserRelationsTest extends TestCase
     //     }
     // }
 
-
     public function test_user_tasks_property_is_instance_of_collection_2(): void
     {
         $this->assertTrue(true);

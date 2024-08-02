@@ -19,6 +19,7 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         $profile = Profile::factory()->create();
+
         return [
             'imageable_type' => get_class($profile),
             'imageable_id' => $profile->getKey(),

@@ -26,7 +26,7 @@ class BoardFactory extends Factory
     public function withCreator(User $user)
     {
         return $this->state([
-            'creator_id' => $user->getKey()
+            'creator_id' => $user->getKey(),
         ]);
     }
 }
