@@ -3,15 +3,10 @@
 namespace Tests\Feature\Api\TaskController;
 
 use App\Models\Board;
-use App\Models\Task;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
-
     public function test_auth_user_can_create_task(): void
     {
         $this->login();

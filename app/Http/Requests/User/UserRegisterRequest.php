@@ -35,5 +35,4 @@ class UserRegisterRequest extends FormRequest
             'password_confirmation' => $this->get('credential_confirmation'),
         ]);
     }
-
 }

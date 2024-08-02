@@ -12,7 +12,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
     use PlanAuthorization;
 
     // scope
@@ -75,6 +77,4 @@ class User extends Authenticatable
     {
         return Task::create([...$data, 'creator_id' => $this->getKey()]);
     }
-
-
 }

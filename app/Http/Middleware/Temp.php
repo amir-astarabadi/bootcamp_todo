@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use Symfony\Component\HttpFoundation\Response;
 
 class Temp
 {
@@ -23,7 +22,7 @@ class Temp
 
     public function terminate(Request $request)
     {
-        DB::list(function($q){
+        DB::list(function ($q) {
             Log::channel('daily')->info($request->fullUrl(), ['query' => $q->sql, 'time' => $q->time]);
         });
     }
