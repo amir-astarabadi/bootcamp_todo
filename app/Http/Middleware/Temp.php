@@ -20,9 +20,9 @@ class Temp
         return $next($request);
     }
 
-    public function terminate(Request $request)
+    public function terminate(Request $request): void
     {
-        DB::list(function ($q) {
+        DB::listen(function ($q) use ($request) {
             Log::channel('daily')->info($request->fullUrl(), ['query' => $q->sql, 'time' => $q->time]);
         });
     }
