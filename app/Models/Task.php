@@ -5,7 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property int $id
+ * @property string $title
+ *
+ * @property-read \Illuminate\Support\Collection<\App\Models\User> $users
+ */
 class Task extends Model
 {
     use HasFactory;
@@ -28,7 +35,7 @@ class Task extends Model
         return $this->BelongsTo(Board::class);
     }
 
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
