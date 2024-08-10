@@ -16,5 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profiles/{profile}', [ProfileController::class, 'update'])->name('profiles.update');
     Route::get('/users', [UserController::class, 'show'])->name('users.show');
     Route::post('/boards', [BoardController::class, 'store'])->name('boards.store');
+
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
 });

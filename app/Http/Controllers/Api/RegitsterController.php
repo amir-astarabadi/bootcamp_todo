@@ -13,7 +13,6 @@ class RegitsterController extends Controller
     public function __invoke(UserRegisterRequest $request)
     {
         $user = User::create($request->validated());
-        
         return RegiesterResource::make($user);
     }
 }
