@@ -4,7 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\Profile
+ *
+ * @property int $user_id
+ * @property string $company
+ * @property string $nationality
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property User $owner
+ */
 class Profile extends Model
 {
     use HasFactory;
@@ -15,7 +27,7 @@ class Profile extends Model
         'nationality',
     ];
 
-    public function owner()
+    public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

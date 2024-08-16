@@ -3,29 +3,24 @@
 namespace Tests\Feature\Api\LoginController;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-
     public function test_exists_user_can_login(): void
     {
         $user = User::factory()->create();
         $inputes = [
             'email' => $user->email,
-            'password' => 'password'
+            'password' => 'password',
         ];
 
         $response = $this->postJson(route('api.login'), $inputes);
         $response->assertOk();
         $response->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has('data.auth_token')
+            fn (AssertableJson $json) => $json->has('data.auth_token')
                 ->etc()
         );
     }
@@ -34,7 +29,7 @@ class LoginTest extends TestCase
     {
         $inputes = [
             'email' => 'test@test.com',
-            'password' => 'password'
+            'password' => 'password',
         ];
 
         $response = $this->postJson(route('api.login'), $inputes);
@@ -46,11 +41,10 @@ class LoginTest extends TestCase
         $user = User::factory()->create();
         $inputes = [
             'email' => $user->email,
-            'password' => 'wrong pass'
+            'password' => 'wrong pass',
         ];
 
         $response = $this->postJson(route('api.login'), $inputes);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
-
 }

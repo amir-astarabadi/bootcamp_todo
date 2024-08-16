@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRegisterRequest;
 use App\Http\Resources\User\RegiesterResource;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class RegitsterController extends Controller
 {
-    public function __invoke(UserRegisterRequest $request)
+    public function __invoke(UserRegisterRequest $request): RegiesterResource
     {
-        $user = User::create($request->validated());
+        $user = User::query()->create($request->validated());
+
         return RegiesterResource::make($user);
     }
 }

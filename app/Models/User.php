@@ -6,6 +6,9 @@ namespace App\Models;
 
 use App\Models\Traits\User\PlanAuthorization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,7 +21,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
     use PlanAuthorization;
 
     // scope
@@ -57,17 +62,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function profile()
+    public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
     }
 
-    public function tasks()
+    public function tasks(): BelongsToMany
     {
         return $this->belongsToMany(Task::class);
     }
 
-    public function boards()
+    public function boards(): HasMany
     {
         return $this->hasMany(Board::class, 'creator_id');
     }
@@ -81,6 +86,4 @@ class User extends Authenticatable
     {
         return Task::create([...$data, 'creator_id' => $this->getKey()]);
     }
-
-
 }

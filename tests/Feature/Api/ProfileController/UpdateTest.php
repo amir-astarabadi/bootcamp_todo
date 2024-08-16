@@ -3,11 +3,6 @@
 namespace Tests\Feature\Api\ProfileController;
 
 use App\Models\Profile;
-use App\Models\User;
-use Database\Factories\ProfileFactory;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
@@ -17,7 +12,7 @@ class UpdateTest extends TestCase
 
     private ?Profile $profile = null;
 
-    public function setUp():void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -28,7 +23,7 @@ class UpdateTest extends TestCase
             'nationality' => fake()->words(1, true),
         ];
     }
-    
+
     public function test_auth_login_can_update_his_prorile(): void
     {
 

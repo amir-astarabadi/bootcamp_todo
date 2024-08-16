@@ -3,9 +3,6 @@
 namespace Tests\Feature\Api\RegiestrController;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
@@ -32,8 +29,7 @@ class RegisterTest extends TestCase
 
         $this->assertDatabaseHas('users', ['email' => $this->inputs['user_name']]);
         $response->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has('data.auth_token')
+            fn (AssertableJson $json) => $json->has('data.auth_token')
                 ->where('data.user_id', User::whereEmail($this->inputs['user_name'])->first()->getKey())
                 ->etc()
         );

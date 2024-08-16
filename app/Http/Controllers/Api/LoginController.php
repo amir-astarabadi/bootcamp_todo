@@ -6,19 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserLoginRequest;
 use App\Http\Resources\User\LoginResource;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     public function __invoke(UserLoginRequest $request)
     {
+        $user = User::query()
+            ->where('email', '=', $request->validated(['email']))
+            ->first();
 
-        $user = User::whereEmail($request->validated(['email']))->first();
-
-        if(is_null($user) || !Hash::check($request->validated(['password']), $user->password)){
+        if (is_null($user) || ! Hash::check($request->validated(['password']), $user->password)) {
             return response('invalid credentials', Response::HTTP_FORBIDDEN);
         }
 

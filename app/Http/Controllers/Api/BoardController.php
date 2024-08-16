@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Board\BoardCreateReqeust;
-use App\Models\Board;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BoardController extends Controller
@@ -20,9 +21,12 @@ class BoardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BoardCreateReqeust $request)
+    public function store(BoardCreateReqeust $request): JsonResponse
     {
-        $board = auth()->user()->createBoard($request->validated());
+        /** @var User $authUser */
+        $authUser = auth()->user();
+
+        $board = $authUser->createBoard($request->validated());
 
         return response()->json(['message' => 'board created']);
     }
