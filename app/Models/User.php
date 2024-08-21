@@ -18,7 +18,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $name
  * @property string $email
  */
-
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -84,6 +83,26 @@ class User extends Authenticatable
 
     public function createTask(array $data): Task
     {
-        return Task::create([...$data, 'creator_id' => $this->getKey()]);
+        /** @var Task $task */
+        $task = Task::query()
+            ->create([
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'due_date' => $data['due_date'],
+                'board_id' => $data['board_id'],
+                'creator_id' => $this->getKey(),
+            ]);
+
+        // Handle the file uploads
+        if ($image = $data['image'] ?? false) {
+            $path = $image->store('images');
+
+            $task->images()->create([
+                'address' => $path,
+                'disk' => 'public',
+            ]);
+        }
+
+        return $task;
     }
 }
