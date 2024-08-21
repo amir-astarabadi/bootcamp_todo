@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Task;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class TaskCreateReqeust extends FormRequest
 {
@@ -26,6 +27,12 @@ class TaskCreateReqeust extends FormRequest
             'description' => ['required', 'string'],
             'due_date' => ['required', 'date', 'after_or_equal:' . now()->toDateString()],
             'board_id' => ['required', 'exists:boards,id'],
+            'image' => [
+                'nullable',
+                File::image()
+                    ->min('1kb')
+                    ->max('10mb'),
+            ],
         ];
     }
 }
